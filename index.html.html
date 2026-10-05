@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RA115G – Rapportöversikt A004</title>
+<style>
+:root{
+  --bg:#f4f7f8;
+  --card:#ffffff;
+  --text:#1f2933;
+  --muted:#5f6b76;
+  --accent:#365b6d;
+  --accent2:#6f8f9d;
+  --line:#dbe3e7;
+  --soft:#eaf1f4;
+  --ok:#2f6f56;
+  --warn:#8a5a20;
+  --shadow:0 8px 24px rgba(31,41,51,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
+header{
+  background:linear-gradient(135deg,#2f5262,#557887);
+  color:#fff;
+  padding:48px 20px 36px;
+}
+.header-inner{max-width:1180px;margin:auto}
+.eyebrow{font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(2rem,4vw,3.6rem);line-height:1.08;margin:.35rem 0 1rem}
+.lead{max-width:850px;font-size:1.12rem;opacity:.95}
+.topnav{
+  position:sticky;top:0;z-index:10;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topnav .nav-inner{
+  max-width:1180px;margin:auto;display:flex;gap:8px;overflow:auto;padding:10px 16px;
+}
+.topnav a{
+  flex:0 0 auto;text-decoration:none;color:var(--text);
+  padding:8px 12px;border-radius:999px;background:var(--soft);font-size:.92rem;
+}
+.topnav a:hover{background:#dbe8ed}
+main{max-width:1180px;margin:auto;padding:28px 16px 70px}
+.section{margin:34px 0 44px}
+.section h2{font-size:1.7rem;margin:0 0 8px;color:#274653}
+.section-intro{color:var(--muted);max-width:900px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:20px;box-shadow:var(--shadow);
+}
+.card h3{margin:.25rem 0 .6rem;font-size:1.1rem}
+.kicker{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+.step{cursor:pointer;transition:.18s transform,.18s box-shadow}
+.step:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(31,41,51,.12)}
+.step-number{
+  width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent);color:#fff;font-weight:700;margin-bottom:10px;
+}
+.flow{
+  display:grid;grid-template-columns:repeat(9,minmax(150px,1fr));gap:10px;overflow:auto;padding-bottom:8px;margin-top:18px;
+}
+.flow a{
+  text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:14px;min-height:118px;box-shadow:var(--shadow)
+}
+.flow strong{display:block;color:var(--accent);margin-bottom:4px}
+details{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:0 18px;margin:12px 0;box-shadow:var(--shadow)
+}
+summary{cursor:pointer;font-weight:700;padding:16px 0;color:#274653}
+.details-body{padding:0 0 18px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.compare{
+  background:#fff;border-radius:16px;border:1px solid var(--line);padding:18px;box-shadow:var(--shadow)
+}
+.compare.good{border-left:6px solid var(--ok)}
+.compare.caution{border-left:6px solid var(--warn)}
+.badge{
+  display:inline-block;padding:4px 9px;border-radius:999px;background:var(--soft);font-size:.8rem;color:var(--accent);font-weight:700
+}
+ul.checklist{list-style:none;padding:0;margin:12px 0 0}
+ul.checklist li{padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed var(--line)}
+ul.checklist li:last-child{border-bottom:0}
+ul.checklist li:before{content:"✓";position:absolute;left:0;top:8px;color:var(--ok);font-weight:700}
+.callout{
+  background:#edf4f6;border-left:5px solid var(--accent);padding:18px 20px;border-radius:12px;margin-top:16px
+}
+.quoteq{font-size:1.05rem;font-weight:700;color:#274653}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.timeline .phase{background:#fff;border-radius:18px;padding:22px;border:1px solid var(--line);box-shadow:var(--shadow)}
+.phase h3{margin-top:0}
+table{width:100%;border-collapse:collapse;margin-top:12px;background:#fff}
+th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:var(--soft);color:#274653}
+.footer-note{color:var(--muted);font-size:.9rem;margin-top:40px}
+.button-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.button{
+  display:inline-block;text-decoration:none;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:700
+}
+.button.secondary{background:#e5eef1;color:#274653}
+@media(max-width:760px){
+  .two-col,.timeline{grid-template-columns:1fr}
+  header{padding-top:36px}
+}
+@media print{
+  .topnav{display:none}
+  body{background:#fff}
+  .card,details,.compare,.phase,.flow a{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="eyebrow">RA115G • A004 Vetenskaplig metod</div>
+    <h1>Från ämne till färdig rapport</h1>
+    <p class="lead">
+      En klickbar översikt över rapportarbetet. Använd sidan för att se helheten, gå direkt till den del du arbetar med
+      och kontrollera att den röda tråden håller från syfte till resultat och diskussion.
+    </p>
+    <div class="button-row">
+      <a class="button" href="#studentvag">Var befinner du dig?</a>
+      <a class="button secondary" href="#process">Se hela rapportprocessen</a>
+    </div>
+  </div>
+</header>
+
+<nav class="topnav">
+  <div class="nav-inner">
+    <a href="#studentvag">Var är jag?</a>
+    <a href="#helhet">Översikt</a>
+    <a href="#process">Hela processen</a>
+    <a href="#fallgropar">Vanliga fallgropar</a>
+    <a href="#ordlista">Ordlista</a>
+    <a href="#resultat">Resultat</a>
+    <a href="#diskussion">Diskussion</a>
+    <a href="#ai">Generativ AI</a>
+    <a href="#slutkontroll">Slutkontroll</a>
+  </div>
+</nav>
+
+<main>
+
+
+<section id="studentvag" class="section">
+  <h2>Var befinner du dig i rapportarbetet?</h2>
+  <p class="section-intro">
+    Börja här. Välj den del som bäst motsvarar det du arbetar med just nu. Du kan alltid gå tillbaka till den fullständiga processöversikten längre ned på sidan.
+  </p>
+
+  <div class="grid">
+    <a class="card step" href="#steg1" style="text-decoration:none;color:inherit">
+      <div class="step-number">1</div>
+      <div class="kicker">Kom igång</div>
+      <h3>Ämne, avgränsning och syfte</h3>
+      <p>För dig som ska välja område, avgränsa och formulera ett syfte som går att arbeta vidare med.</p>
+    </a>
+
+    <a class="card step" href="#steg3" style="text-decoration:none;color:inherit">
+      <div class="step-number">2</div>
+      <div class="kicker">Hitta forskning</div>
+      <h3>Sökord, databaser och artikelurval</h3>
+      <p>För dig som arbetar med litteratursökningen och behöver hitta fem relevanta kvantitativa originalartiklar.</p>
+    </a>
+
+    <a class="card step" href="#steg6" style="text-decoration:none;color:inherit">
+      <div class="step-number">3</div>
+      <div class="kicker">Skriv rapportens första delar</div>
+      <h3>Introduktion och metod</h3>
+      <p>För dig som ska beskriva bakgrunden till området och göra arbetsprocessen tydlig för läsaren.</p>
+    </a>
+
+    <a class="card step" href="#steg5" style="text-decoration:none;color:inherit">
+      <div class="step-number">4</div>
+      <div class="kicker">Bearbeta forskningen</div>
+      <h3>Kvalitetsgranskning och artikelresultat</h3>
+      <p>För dig som granskar studiernas kvalitet och börjar identifiera de resultat som är relevanta för syftet.</p>
+    </a>
+
+    <a class="card step" href="#resultat" style="text-decoration:none;color:inherit">
+      <div class="step-number">5</div>
+      <div class="kicker">Skriv färdigt rapporten</div>
+      <h3>Resultat och diskussion</h3>
+      <p>För dig som ska gå från fem separata studier till ett sammanställt resultat och därefter diskutera metod och resultat.</p>
+    </a>
+
+    <a class="card step" href="#slutkontroll" style="text-decoration:none;color:inherit">
+      <div class="step-number">6</div>
+      <div class="kicker">Inför inlämning</div>
+      <h3>Kontrollera helheten</h3>
+      <p>För dig som vill gå igenom rapportens struktur, AI-redovisning, referenser, språk och formalia före inlämning.</p>
+    </a>
+  </div>
+</section>
+
+<section id="helhet" class="section">
+  <h2>Vad går examinationen ut på?</h2>
+  <p class="section-intro">
+    Du ska individuellt skriva en vetenskapligt strukturerad rapport med utgångspunkt i kvantitativ forskning.
+    Rapporten bygger på fem vetenskapliga originalartiklar som tillsammans ska bidra till att rapportens syfte uppnås.
+  </p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="badge">5 artiklar</span>
+      <h3>Kvantitativa originalartiklar</h3>
+      <p>Alla fem ska vara relevanta för syftet och kunna bidra med resultat som går att bearbeta tillsammans.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Vetenskaplig process</span>
+      <h3>Sök, välj, granska och sammanställ</h3>
+      <p>Du arbetar med litteratursökning, urval, kvalitetsgranskning, statistisk information, resultat och kritisk diskussion.</p>
+    </div>
+    <div class="card">
+      <span class="badge">Ingen egen datainsamling</span>
+      <h3>Du analyserar publicerad forskning</h3>
+      <p>Du ska inte samla in egen data och inte göra om artiklarnas statistiska analyser.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="quoteq">Tre frågor att återkomma till under hela arbetet:</div>
+    <ol>
+      <li>Gör detta att jag kan uppnå mitt syfte?</li>
+      <li>Är det tydligt för läsaren hur jag har gått tillväga?</li>
+      <li>Kan jag motivera de val jag har gjort?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="process" class="section">
+  <h2>Rapportprocessen</h2>
+  <p class="section-intro">Klicka på ett steg för att gå direkt till förklaringen.</p>
+
+  <div class="flow">
+    <a href="#steg1"><strong>1</strong>Välj och avgränsa ämne</a>
+    <a href="#steg2"><strong>2</strong>Formulera syfte</a>
+    <a href="#steg3"><strong>3</strong>Litteratursökning</a>
+    <a href="#steg4"><strong>4</strong>Välj fem artiklar</a>
+    <a href="#steg5"><strong>5</strong>Kvalitetsgranska</a>
+    <a href="#steg6"><strong>6</strong>Skriv introduktion</a>
+    <a href="#steg7"><strong>7</strong>Skriv metod</a>
+    <a href="#steg8"><strong>8–9</strong>Bearbeta och bygg resultat</a>
+    <a href="#steg10"><strong>10–11</strong>Diskutera metod och resultat</a>
+  </div>
+
+  <details id="steg1" open>
+    <summary>1. Välj och avgränsa ett ämne</summary>
+    <div class="details-body">
+      <p>Ämnet ska ligga inom kursens innehåll och ha tydlig relevans för röntgensjuksköterskans profession. Börja gärna brett men avgränsa successivt till något som går att undersöka med fem kvantitativa originalartiklar.</p>
+      <ul class="checklist">
+        <li>Ämnet ligger inom radiografi/röntgensjuksköterskans kunskapsområde.</li>
+        <li>Det finns tillräckligt med kvantitativ forskning inom området.</li>
+        <li>Ämnet är inte så brett att fem artiklar blir svåra att sammanföra.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details id="steg2">
+    <summary>2. Formulera rapportens syfte</summary>
+    <div class="details-body">
+      <p>Syftet är rapportens röda tråd. Det avgör vilken forskning som är relevant, vilka resultat som ska tas med och vad som senare ska diskuteras.</p>
+      <div class="two-col">
+        <div class="compare good">
+          <h3>Syftet fungerar när...</h3>
+          <p>det är tydligt, avgränsat och går att uppnå med fem kvantitativa originalartiklar.</p>
+        </div>
+        <div class="compare caution">
+          <h3>Justera syftet när...</h3>
+          <p>sökningen blir orimligt bred, nästan inte ger några relevanta träffar eller artiklarna inte går att sammanföra.</p>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details id="steg3">
+    <summary>3. Planera och genomför litteratursökningen</summary>
+    <div class="details-body">
+      <p>Utgå från centrala begrepp i syftet. Identifiera engelska sökord och synonymer, kombinera dem strukturerat och dokumentera sökningen medan du arbetar.</p>
+      <table>
+        <tr><th>Dokumentera</th><th>Exempel på vad som behöver finnas med</th></tr>
+        <tr><td>Databas</td><td>Vilken vetenskaplig databas sökningen gjordes i.</td></tr>
+        <tr><td>Sökord</td><td>Centrala begrepp, synonymer och kombinationer.</td></tr>
+        <tr><td>Avgränsningar</td><td>De avgränsningar som användes och varför.</td></tr>
+        <tr><td>Datum och träffar</td><td>När sökningen gjordes och hur många träffar den gav.</td></tr>
+      </table>
+    </div>
+  </details>
+
+  <details id="steg4">
+    <summary>4. Välj ut fem vetenskapliga originalartiklar</summary>
+    <div class="details-body">
+      <p>Urvalet sker stegvis: titel → abstract → fulltext. Kontrollera sedan de fem artiklarna som en helhet.</p>
+      <div class="two-col">
+        <div class="compare caution">
+          <h3>Inte tillräckligt</h3>
+          <p>”Artikeln handlar ungefär om samma ämne.”</p>
+        </div>
+        <div class="compare good">
+          <h3>Det du behöver</h3>
+          <p>”Artikelns resultat bidrar till att uppnå mitt syfte och går att bearbeta tillsammans med resultaten från de andra artiklarna.”</p>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details id="steg5">
+    <summary>5. Kvalitetsgranska artiklarna</summary>
+    <div class="details-body">
+      <p>Använd en etablerad granskningsmall som är lämplig för studiens design, exempelvis en relevant mall från SBU eller enligt Forsberg och Wengström.</p>
+      <p>Kvalitetsgranskning handlar inte om huruvida du håller med om studiens resultat, utan om hur tillförlitligt resultatet kan bedömas vara utifrån hur studien har genomförts.</p>
+      <ul class="checklist">
+        <li>Urval och deltagare</li>
+        <li>Datainsamling och mätmetoder</li>
+        <li>Bortfall</li>
+        <li>Statistisk analys</li>
+        <li>Risk för bias och andra metodologiska problem</li>
+      </ul>
+      <p><strong>Kom ihåg:</strong> resultatet av kvalitetsgranskningen sammanställs i en matris som redovisas i Bilaga 1.</p>
+    </div>
+  </details>
+
+  <details id="steg6">
+    <summary>6. Skriv introduktionen</summary>
+    <div class="details-body">
+      <p>Introduktionen ska leda läsaren från ett bredare perspektiv mot det specifika problem som rapporten undersöker.</p>
+      <div class="callout"><strong>Brett område → relevant bakgrund → specifikt problem → syfte</strong></div>
+      <p>Här kan du använda relevant kurslitteratur, myndighetskällor och annan tillförlitlig kunskap. Introduktionen behöver inte enbart bygga på de fem artiklar som används i resultatdelen.</p>
+    </div>
+  </details>
+
+  <details id="steg7">
+    <summary>7. Skriv metoden</summary>
+    <div class="details-body">
+      <p>Metoden ska beskriva hur du faktiskt gick tillväga. Den ska göra arbetsprocessen transparent.</p>
+      <ul class="checklist">
+        <li>Databaser, sökord, sökordskombinationer och avgränsningar</li>
+        <li>Inklusions- och exklusionskriterier</li>
+        <li>Hur urvalet gick från sökträffar till fem artiklar</li>
+        <li>Vilken kvalitetsgranskningsmall som användes och hur granskningen genomfördes</li>
+        <li>Hur artiklarnas resultat bearbetades och sammanfördes</li>
+      </ul>
+      <div class="callout">
+        <strong>Kontrollfråga:</strong> Skulle en läsare kunna förstå hur du gick från syftet till just dessa fem artiklar och till det resultat du presenterar?
+      </div>
+    </div>
+  </details>
+
+  <details id="steg8">
+    <summary>8–9. Bearbeta artiklarnas resultat och bygg resultatdelen</summary>
+    <div class="details-body">
+      <p>Identifiera den information i varje artikel som faktiskt är relevant för ditt syfte. Du ska förstå och korrekt återge publicerade resultat – inte göra nya statistiska analyser.</p>
+      <p>Du kan möta exempelvis antal och andelar, medelvärden, medianer, spridningsmått, gruppskillnader, samband, konfidensintervall och p-värden.</p>
+      <div class="two-col">
+        <div class="compare caution">
+          <h3>Undvik</h3>
+          <p>Artikel 1 visar... Artikel 2 visar... Artikel 3 visar...</p>
+        </div>
+        <div class="compare good">
+          <h3>Gör i stället</h3>
+          <p>Jämför resultaten, identifiera gemensamma områden och skapa underrubriker som samlar resultat från flera artiklar.</p>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <details id="steg10">
+    <summary>10–11. Skriv metoddiskussion och resultatdiskussion</summary>
+    <div class="details-body">
+      <div class="two-col">
+        <div class="compare">
+          <span class="badge">Metoddiskussion</span>
+          <h3>Hur påverkar mina metodval tillförlitligheten?</h3>
+          <p>Diskutera styrkor, begränsningar, databaser, sökord, urval, kvalitetsgranskning, skillnader mellan studier och bearbetningen av resultaten.</p>
+        </div>
+        <div class="compare">
+          <span class="badge">Resultatdiskussion</span>
+          <h3>Vad kan det sammanställda resultatet betyda?</h3>
+          <p>Relatera centrala resultat till syftet, tidigare forskning och det radiografiska/professionella sammanhanget.</p>
+        </div>
+      </div>
+    </div>
+  </details>
+</section>
+
+
+
+
+<section id="fallgropar" class="section">
+  <h2>Vanliga fallgropar</h2>
+  <p class="section-intro">
+    Några återkommande sätt att hamna snett i rapportarbetet – och hur du kan tänka i stället.
+  </p>
+
+  <table>
+    <tr>
+      <th>Vanlig fallgrop</th>
+      <th>Tänk så här i stället</th>
+    </tr>
+    <tr>
+      <td>De fem artiklarna handlar om ungefär samma ämne.</td>
+      <td>Varje artikel ska bidra med resultat som hjälper dig att uppnå rapportens syfte.</td>
+    </tr>
+    <tr>
+      <td>Resultatdelen byggs upp som fem separata artikelreferat.</td>
+      <td>Jämför artiklarnas resultat och samla sådant som hör ihop under gemensamma områden eller underrubriker.</td>
+    </tr>
+    <tr>
+      <td>Metoden beskriver hur litteratursökning brukar genomföras.</td>
+      <td>Beskriv hur du faktiskt gick tillväga i just din rapportprocess.</td>
+    </tr>
+    <tr>
+      <td>En styrka eller svaghet nämns utan förklaring.</td>
+      <td>Förklara varför det är en styrka eller begränsning och vilken betydelse det kan ha haft för resultatets tillförlitlighet.</td>
+    </tr>
+    <tr>
+      <td>Egna värderingar eller förklaringar smyger sig in i resultatdelen.</td>
+      <td>Resultatdelen ska sakligt visa vad de inkluderade studierna visar. Tolkning och värdering hör hemma i diskussionen.</td>
+    </tr>
+    <tr>
+      <td>Resultatdiskussionen upprepar resultatdelen med andra ord.</td>
+      <td>Diskutera i stället vad resultaten kan betyda, hur de förhåller sig till tidigare kunskap och vilken betydelse de kan ha i ett professionellt sammanhang.</td>
+    </tr>
+  </table>
+</section>
+
+<section id="ordlista" class="section">
+  <h2>Kort ordlista</h2>
+  <p class="section-intro">
+    Kortfattade förklaringar av några begrepp som återkommer i rapportarbetet.
+  </p>
+
+  <div class="grid">
+    <div class="card"><h3>Originalartikel</h3><p>En vetenskaplig artikel där forskarna redovisar en egen genomförd studie, dess metod och resultat.</p></div>
+    <div class="card"><h3>Kvantitativ metod</h3><p>Forskning där data uttrycks och analyseras numeriskt, exempelvis antal, andelar, medelvärden, skillnader eller samband.</p></div>
+    <div class="card"><h3>Inklusionskriterier</h3><p>De kriterier som anger vilka studier som kan ingå i rapporten.</p></div>
+    <div class="card"><h3>Exklusionskriterier</h3><p>De kriterier som anger vilka studier som ska väljas bort.</p></div>
+    <div class="card"><h3>Bias</h3><p>Systematiska fel eller skevheter som kan påverka en studies resultat eller hur tillförlitliga resultaten är.</p></div>
+    <div class="card"><h3>Kvalitetsgranskning</h3><p>En systematisk bedömning av hur en studie har planerats, genomförts och analyserats.</p></div>
+    <div class="card"><h3>Konfidensintervall</h3><p>Ett intervall som uttrycker osäkerheten kring ett skattat resultat.</p></div>
+    <div class="card"><h3>p-värde</h3><p>Ett statistiskt mått som kan användas vid prövning av skillnader eller samband i en studie.</p></div>
+    <div class="card"><h3>Metoddiskussion</h3><p>Den del där du värderar styrkor och begränsningar i den egna arbetsprocessen och i det vetenskapliga underlaget.</p></div>
+  </div>
+</section>
+
+<section id="resultat" class="section">
+  <h2>Resultatdelen – från fem studier till ett gemensamt resultat</h2>
+  <p class="section-intro">Det här är en central del av arbetet och en vanlig plats där rapporter annars blir fem separata artikelreferat.</p>
+  <div class="callout">
+    <strong>Arbetsgång:</strong><br>
+    Fem artiklar → välj resultat som svarar mot syftet → jämför → hitta likheter/skillnader → gruppera → skapa underrubriker → skriv ett sammanhållet resultat.
+  </div>
+
+  <div class="grid">
+    <div class="card"><h3>Återkommer något?</h3><p>Vilka resultat syns i flera studier?</p></div>
+    <div class="card"><h3>Finns skillnader?</h3><p>Visar studierna olika eller motsägande resultat?</p></div>
+    <div class="card"><h3>Kompletterar de varandra?</h3><p>Har studierna undersökt olika aspekter av samma fråga?</p></div>
+    <div class="card"><h3>Är det relevant?</h3><p>Bidrar resultatet faktiskt till att syftet uppnås?</p></div>
+  </div>
+
+  <div class="callout">
+    <strong>Resultat eller diskussion?</strong><br>
+    Om du beskriver <em>vad studierna visar</em> är du i resultatdelen. Om du börjar förklara <em>varför resultatet är viktigt, vad det kan bero på eller vilka konsekvenser det kan få</em> har du gått över till diskussion.
+  </div>
+</section>
+
+<section id="diskussion" class="section">
+  <h2>Skillnaden mellan metod, resultat och diskussion</h2>
+  <table>
+    <tr><th>Del</th><th>Huvudfråga</th><th>Vad gör du?</th></tr>
+    <tr><td>Metod</td><td>Vad gjorde jag?</td><td>Beskriver arbetsprocessen konkret och transparent.</td></tr>
+    <tr><td>Metoddiskussion</td><td>Hur bra fungerade mina val?</td><td>Värderar styrkor, begränsningar och deras möjliga betydelse.</td></tr>
+    <tr><td>Resultat</td><td>Vad visar de fem studierna tillsammans?</td><td>Presenterar en bearbetad och saklig sammanställning.</td></tr>
+    <tr><td>Resultatdiskussion</td><td>Vad kan resultaten betyda?</td><td>Jämför, problematiserar och sätter resultaten i ett större sammanhang.</td></tr>
+  </table>
+</section>
+
+<section id="ai" class="section">
+  <h2>Redovisning av generativ AI</h2>
+  <p class="section-intro">Om generativ AI har använts ska det redovisas tydligt som en egen del efter diskussionen och före referenslistan.</p>
+  <div class="grid">
+    <div class="card"><h3>Vilket verktyg?</h3><p>Ange exempelvis ChatGPT, Claude, Copilot eller motsvarande.</p></div>
+    <div class="card"><h3>Hur användes det?</h3><p>Beskriv konkret vad verktyget gjorde eller hjälpte dig med.</p></div>
+    <div class="card"><h3>I vilket syfte?</h3><p>Exempelvis språkgranskning, synonymer inför sökning eller stöd för att förstå statistiska begrepp.</p></div>
+    <div class="card"><h3>Var i processen?</h3><p>Ange vilka delar av rapporten eller arbetsprocessen som berördes.</p></div>
+  </div>
+  <div class="callout">
+    Du ansvarar själv för innehållet. Uppgifter, påståenden, källor och referenser måste kontrolleras mot tillförlitliga originalkällor. Generativ AI är inte en vetenskaplig källa.
+  </div>
+</section>
+
+<section id="slutkontroll" class="section">
+  <h2>Slutkontroll – håller den röda tråden?</h2>
+  <ul class="checklist card">
+    <li>Introduktionen leder fram till det syfte som faktiskt undersöks.</li>
+    <li>Metoden beskriver hur du gick tillväga för att kunna uppnå syftet.</li>
+    <li>De fem artiklarna är kvantitativa originalartiklar och relevanta för syftet.</li>
+    <li>Resultatet bygger på de fem artiklarna och är en bearbetad sammanställning.</li>
+    <li>Metoddiskussionen granskar den egna processen och det vetenskapliga underlaget kritiskt.</li>
+    <li>Resultatdiskussionen diskuterar resultatens betydelse utan att bara upprepa resultatdelen.</li>
+    <li>AI-användning redovisas när generativ AI har använts.</li>
+    <li>Referenser i text och referenslista överensstämmer.</li>
+    <li>Språk, struktur och formalia är genomgångna.</li>
+  </ul>
+  <div class="callout">
+    <strong>Kom ihåg:</strong> vetenskapligt arbete är inte helt linjärt. Det är normalt att behöva gå tillbaka, ompröva val och förbättra tidigare delar när du får ny kunskap.
+  </div>
+</section>
+
+<p class="footer-note">
+  Den här översikten är ett pedagogiskt stöd till rapporthandledningen för A004 i RA115G. Den är tänkt som karta och arbetsstöd – den fullständiga handledningen och kursens formella instruktioner gäller vid oklarheter.
+</p>
+
+</main>
+</body>
+</html>
